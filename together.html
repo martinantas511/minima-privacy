@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Together — Privacy policy</title>
+<style>
+  :root { --bg: #ffffff; --fg: #1b1b1f; --muted: #6b6b75; --line: #e6e6ea; --accent: #c46a2e; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e0e11; --fg: #ececf1; --muted: #9a9aa6; --line: #26262d; --accent: #e6935c; } }
+  :root[data-theme="dark"] { --bg: #0e0e11; --fg: #ececf1; --muted: #9a9aa6; --line: #26262d; --accent: #e6935c; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 28px 18px 60px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 28px 0 6px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  ul { padding-left: 20px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+<h1>Privacy policy</h1>
+<p class="muted">Together: Couple Widgets · effective 17 October 2026</p>
+
+<p>Together puts shared widgets for two (or a few) people on the home screen. It has no ads, does not track you and never sells your data. Only what you share with your connection leaves your phone.</p>
+
+<h2>What stays on your phone</h2>
+<ul>
+  <li><b>Your settings</b>: widget look, theme, language, which widgets are in the stack.</li>
+  <li><b>A random device identifier and a device secret</b>, created by the app. They identify this phone inside your connection; they are not linked to your name, account or phone number.</li>
+</ul>
+<p>Android may include these in your Google account backup if you have system backup turned on.</p>
+
+<h2>What leaves your phone</h2>
+<ul>
+  <li><b>Your connection</b> (only after you create one or accept an invite): what you send to it is stored so the others can see it. That means drawings, photos and moments, notes, mood, status, answers to the daily question, poll votes, voice notes, surprises, countdowns, a "together since" date and the name you choose. Data is stored with <a href="https://supabase.com">Supabase</a> (EU). Only the members of the connection can access it. If someone leaves or is removed, the connection gets a new key and they lose access.</li>
+  <li><b>Invites</b>: an invite link contains a short code that is valid for 7 days. To prevent guessing, the IP address is briefly stored when a wrong code is tried, and when a connection is created.</li>
+  <li><b>Instant notifications</b>: Together uses Firebase Cloud Messaging (Google). A technical device token is stored on the server so notifications can reach you.</li>
+  <li><b>Crash reports</b>: if the app crashes, an anonymous technical report is sent to Firebase Crashlytics (Google): phone model, Android version, app version and where in the code the error happened. Never your messages, photos or contacts.</li>
+  <li><b>Purchases (Together+)</b>: payments are handled by Google Play. The subscription status is checked by <a href="https://www.revenuecat.com">RevenueCat</a> using the anonymous device identifier, so Together+ can also unlock for the people on your connection. Together never sees your card details.</li>
+</ul>
+
+<h2>Retention and deletion</h2>
+<p>Moments disappear when you choose (1 hour, 24 hours, 7 days or never). You can delete your own photos and surprises in the app at any time. Leaving a connection removes you from it. To delete a whole connection and everything on the server, email us; we delete it within 30 days. Crashlytics keeps crash reports for 90 days. Uninstalling Together or clearing its storage removes everything from your phone.</p>
+
+<h2>Children</h2>
+<p>Together is not directed at children under 13 and does not knowingly collect their data.</p>
+
+<h2>Your rights</h2>
+<p>Under the GDPR you can access, correct and delete your data, restrict processing, and complain to your data protection authority. The legal basis is providing the feature you use; for crash reports, our legitimate interest in fixing bugs.</p>
+
+<h2>Contact</h2>
+<p>Martin Antas · <a href="mailto:martinantas511@gmail.com">martinantas511@gmail.com</a></p>
+<p class="muted">If this policy changes, we update the date above and announce major changes in the app.</p>
+</main>
+<script>
+  if ((location.hash || "").indexOf("dark") >= 0) document.documentElement.setAttribute("data-theme", "dark");
+</script>
+</body>
+</html>
