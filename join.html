@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Together — Join</title>
+<style>
+  :root { --bg: #f6f1ea; --fg: #1b1b1f; --muted: #6b6b75; --card: #ffffff; --line: #e6e0d8; --ink: #1c1719; --on-ink: #f6f1ea; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #121014; --fg: #ececf1; --muted: #9a9aa6; --card: #1d1a20; --line: #2c2830; --ink: #f4ecef; --on-ink: #1c1719; } }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; }
+  main { width: 100%; max-width: 420px; padding: 32px 16px; box-sizing: border-box; text-align: center; }
+  .heart { font-size: 44px; line-height: 1; }
+  h1 { font-size: 26px; margin: 14px 0 6px; }
+  p { margin: 0 0 18px; color: var(--muted); }
+  .code { display: inline-block; font: 700 30px/1 ui-monospace, "Roboto Mono", monospace; letter-spacing: 6px; padding: 16px 22px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); margin: 6px 0 22px; }
+  .btn { display: block; padding: 16px; border-radius: 999px; background: var(--ink); color: var(--on-ink); text-decoration: none; font-weight: 600; margin: 0 0 12px; }
+  .btn.alt { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  .small { font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="heart">❤</div>
+  <h1 id="title">You're invited to Together</h1>
+  <p id="sub">Shared widgets for two: draw, send a heart, see how they are.</p>
+  <div class="code" id="code">······</div>
+  <a class="btn" id="open" href="#">Open Together</a>
+  <a class="btn alt" id="play" href="#">Get it on Google Play</a>
+  <p class="small" id="hint">Already have it? Tap “I have a code” and enter the code above.</p>
+</main>
+<script>
+(function () {
+  // The invite code is in the fragment (never sent to the server); the app's package in ?p=.
+  var raw = (location.hash || '').replace('#', '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  var code = (raw.length === 6 || raw.length === 8) ? raw : '';
+  var p = new URLSearchParams(location.search).get('p');
+  var pkg = p === 'com.martinantas.minima' ? 'com.martinantas.minima' : 'com.martinantas.together';
+  var name = pkg === 'com.martinantas.minima' ? 'Minima' : 'Together';
+
+  var lang = (navigator.language || 'en').slice(0, 2);
+  var t = {
+    sk: ['Pozvánka do ' + name, 'Spoločné widgety pre dvoch: kreslite, pošlite srdce, viďte, ako sa má.', 'Otvoriť ' + name, 'Stiahnuť z Google Play', 'Už ho máš? Ťukni na „Mám kód“ a zadaj kód vyššie.'],
+    cs: ['Pozvánka do ' + name, 'Společné widgety pro dva: kreslete, pošlete srdce, vidíte, jak se má.', 'Otevřít ' + name, 'Stáhnout z Google Play', 'Už ho máš? Ťukni na „Mám kód“ a zadej kód výše.']
+  }[lang];
+  if (t) {
+    document.documentElement.lang = lang;
+    document.getElementById('title').textContent = t[0];
+    document.getElementById('sub').textContent = t[1];
+    document.getElementById('open').textContent = t[2];
+    document.getElementById('play').textContent = t[3];
+    document.getElementById('hint').textContent = t[4];
+  } else {
+    document.getElementById('title').textContent = "You're invited to " + name;
+    document.getElementById('open').textContent = 'Open ' + name;
+  }
+  document.title = name + ' — Join';
+
+  var play = 'https://play.google.com/store/apps/details?id=' + pkg + (code ? '&referrer=' + encodeURIComponent('invite=' + code) : '');
+  document.getElementById('play').href = play;
+  if (code) document.getElementById('code').textContent = code.slice(0, 3) + ' ' + code.slice(3);
+  else document.getElementById('code').style.display = 'none';
+
+  var android = /android/i.test(navigator.userAgent);
+  // Android: open the app with the code in its join window; not installed → Google Play
+  // with the code as the install referrer, so it fills in by itself after installing.
+  var intent = 'intent://join/' + code + '#Intent;scheme=minima;package=' + pkg +
+    ';S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+  var open = document.getElementById('open');
+  if (android && code) {
+    open.href = intent;
+    // Some in-app browsers block the jump; the button stays for them.
+    setTimeout(function () { location.href = intent; }, 150);
+  } else {
+    open.style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
